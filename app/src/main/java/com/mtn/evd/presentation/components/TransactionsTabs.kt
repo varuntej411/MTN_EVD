@@ -1,5 +1,6 @@
 package com.mtn.evd.presentation.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,13 +9,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,19 +30,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.mtn.evd.navgraph.Screens
 import com.mtn.evd.ui.theme.MTNEVDTheme
 import com.mtn.evd.ui.theme.background
 
 @Composable
-fun TabView(innerPadding: PaddingValues) {
+fun TransactionsTabs(navController: NavHostController, innerPadding: PaddingValues) {
     val tabs = listOf("TopUp", "Transfer", "Purchase")
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(innerPadding),
-        verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TabRow(
@@ -66,6 +66,7 @@ fun TabView(innerPadding: PaddingValues) {
                 Tab(
                     text = {
                         Text(
+                            modifier = Modifier.padding(10.dp),
                             text = title,
                             style = TextStyle(
                                 fontSize = 14.sp,
@@ -73,37 +74,64 @@ fun TabView(innerPadding: PaddingValues) {
                                 fontFamily = FontFamily.Monospace,
                                 fontStyle = FontStyle.Normal
                             ),
-                            maxLines = 1
+                            maxLines = 1,
+                            color = if (selectedTabIndex == index) Color.Black else Color.Gray
                         )
                     },
                     selected = selectedTabIndex == index,
-                    onClick = { selectedTabIndex = index }
+                    onClick = {
+                        selectedTabIndex = index
+                        when (selectedTabIndex) {
+                            0 -> navigateToTab(
+                                navController = navController,
+                                route = Screens.TopUpScreen.route
+                            )
+
+                            1 -> navigateToTab(
+                                navController = navController,
+                                route = Screens.TransferScreen.route
+                            )
+
+                            2 -> navigateToTab(
+                                navController = navController,
+                                route = Screens.PurchaseScreen.route
+                            )
+                        }
+                    }
                 )
             }
-        }
-
-        // Display content based on selected tab
-        when (selectedTabIndex) {
-            0 -> TabContent("This is Tab 1 content")
-            1 -> TabContent("This is Tab 2 content")
-            2 -> TabContent("This is Tab 3 content")
         }
     }
 }
 
 @Composable
-fun TabContent(content: String) {
-    Text(
-        text = content,
-        fontSize = 24.sp,
-        modifier = Modifier.fillMaxSize()
-    )
+fun OnBackClickStateSaver(navController: NavHostController) {
+    BackHandler(true) {
+        navigateToTab(
+            navController = navController,
+            route = Screens.HomeScreen.route
+        )
+    }
+}
+
+private fun navigateToTab(navController: NavHostController, route: String) {
+    navController.navigate(route) {
+        navController.graph.startDestinationRoute?.let {
+            // popUpTo(it)
+            navController.popBackStack(
+                route = Screens.TransactionsScreen.route,
+                inclusive = true
+            )
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MTNEVDTheme {
-        TabView(innerPadding = PaddingValues())
+        TransactionsTabs(navController = rememberNavController(), innerPadding = PaddingValues())
     }
 }

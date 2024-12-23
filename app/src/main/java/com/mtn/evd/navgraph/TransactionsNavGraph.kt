@@ -5,31 +5,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mtn.evd.presentation.screens.home.HomeScreen
-import com.mtn.evd.presentation.screens.reports.ReportsScreen
-import com.mtn.evd.presentation.screens.transactions.TransactionsScreen
 import com.mtn.evd.presentation.screens.transactions.subscreens.PurchaseScreen
 import com.mtn.evd.presentation.screens.transactions.subscreens.TopUpScreen
 import com.mtn.evd.presentation.screens.transactions.subscreens.TransferScreen
 
 @Composable
-fun HomeNavGraph(navController: NavHostController, innerPaddingValues: PaddingValues) {
+fun TransactionsNavGraph(navController: NavHostController, innerPaddingValues: PaddingValues) {
     NavHost(
         navController = navController,
         route = RootNavGraph.HOME_GRAPH,
-        startDestination = Screens.HomeScreen.route
+        startDestination = RootNavGraph.TRANSACTIONS_GRAPH
     ) {
-        composable(route = Screens.HomeScreen.route) {
-            HomeScreen(navController = navController, innerPaddingValues = innerPaddingValues)
-        }
-
-        composable(route = Screens.TransactionsScreen.route) {
-            TransactionsScreen(navController = navController, innerPaddingValues = innerPaddingValues)
-        }
-
-        composable(route = Screens.ReportsScreen.route) {
-            ReportsScreen(navController = navController, innerPaddingValues = innerPaddingValues)
-        }
 
         composable(route = Screens.TopUpScreen.route) {
             TopUpScreen(navController = navController, innerPaddingValues = innerPaddingValues)

@@ -176,7 +176,7 @@ fun LoginScreen(navController: NavController) {
                             fontStyle = FontStyle.Normal,
                             fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
+                            fontSize = 14.sp,
                             style = MaterialTheme.typography.labelSmall
                         )
                     }

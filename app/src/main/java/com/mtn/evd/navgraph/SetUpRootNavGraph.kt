@@ -24,4 +24,5 @@ object RootNavGraph {
     const val ROOT_GRAPH = "ROOT_GRAPH"
     const val AUTH_GRAPH = "AUTH_GRAPH"
     const val HOME_GRAPH = "HOME_GRAPH"
+    const val TRANSACTIONS_GRAPH = "TRANSACTIONS_GRAPH"
 }
