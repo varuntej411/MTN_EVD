@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -45,11 +46,11 @@ fun TopUpScreen(navController: NavHostController, innerPaddingValues: PaddingVal
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize().safeContentPadding(),
         contentAlignment = Alignment.TopCenter
     ) {
         Row(
-            modifier = Modifier.padding(top = 10.dp)
+            modifier = Modifier.padding(10.dp)
                 .width(IntrinsicSize.Min)
                 .height(35.dp)
                 .padding(horizontal = 10.dp)

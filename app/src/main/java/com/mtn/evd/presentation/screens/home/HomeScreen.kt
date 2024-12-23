@@ -29,11 +29,10 @@ import com.mtn.evd.ui.theme.background
 @Composable
 fun HomeScreen(navController: NavHostController, innerPaddingValues: PaddingValues) {
         Box(
-            modifier = Modifier
-                .padding(top = 150.dp, bottom = 20.dp)
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 .fillMaxWidth()
                 .height(200.dp)
-                .padding(horizontal = 16.dp).background(color = background),
+                .background(color = background),
             contentAlignment = Alignment.TopStart
         ) {
 

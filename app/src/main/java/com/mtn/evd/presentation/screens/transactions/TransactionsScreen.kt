@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.HorizontalDivider
@@ -33,16 +34,15 @@ import com.mtn.evd.presentation.components.TransactionsTabs
 import com.mtn.evd.ui.theme.background
 
 @Composable
-fun TransactionsScreen(navController: NavHostController, innerPaddingValues: PaddingValues) {
+fun TransactionsScreen(navController: NavHostController) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPaddingValues),
+            .fillMaxSize().safeContentPadding(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TransactionsTabs(navController = navController, innerPadding = innerPaddingValues)
+        TransactionsTabs(navController = navController, innerPadding = PaddingValues())
     }
 }
 
@@ -50,7 +50,6 @@ fun TransactionsScreen(navController: NavHostController, innerPaddingValues: Pad
 @Composable
 fun PreviewTransactionsScreen() {
     TransactionsScreen(
-        navController = rememberNavController(),
-        innerPaddingValues = PaddingValues()
+        navController = rememberNavController()
     )
 }

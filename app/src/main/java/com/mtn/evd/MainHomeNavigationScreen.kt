@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -58,17 +59,14 @@ fun MainHomeNavigationScreen(
 //        }
 //    }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            CustomToolbar()
-        }
-    ) { innerPaddingValues ->
+    Column(
+        modifier = Modifier.fillMaxSize().background(Color.White),
+    ) {
+        CustomToolbar()
 
         TabRow(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPaddingValues),
+                .fillMaxWidth(),
             selectedTabIndex = selectedTabIndex,
             indicator = { tabPositions ->
                 // Custom indicator positioning based on selected tab
@@ -116,7 +114,7 @@ fun MainHomeNavigationScreen(
                 )
             }
         }
-        HomeNavGraph(navController = navController, innerPaddingValues = innerPaddingValues)
+       HomeNavGraph(navController = navController)
     }
 }
 
